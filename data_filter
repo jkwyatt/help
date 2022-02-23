@@ -4,13 +4,17 @@
 #using the python lingo - filter the data where SA (a variable) is > 35 at 200 dbar (a coordinate) 
 
 #has to be the xarray where function I assume? 
+
 import numpy as np
 import xarray as xr
+
+#create data
 N_PROF=np.linspace(1,1000)
 N_LEVELS=np.linspace(0,2000,201)
 mock_SA=xr.DataArray(np.random.randint(30,37,size=(999,201)),dims = ["N_PROF", "N_LEVELS"])
 print(mock_SA)
 
-
-filtered_SA=mock_SA.where(mock_SA>35,N_LEVELS=<200)   #WRONG SYNTAX, and no idea on the right syntax 
+#filter the data 
+filtered_SA=mock_SA.where(mock_SA>35,N_LEVELS=<200)  
+#WRONG SYNTAX, and no idea on the right syntax 
 #this example is very unlike real ocean as SA will decrease with depth in real ocean, but I think will serve the purpose
