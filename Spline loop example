@@ -4,13 +4,6 @@ import xarray as xr
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Let's make our plots pretty
-import seaborn as sns
-sns.set()
-
-!pip install windrose
-from windrose import WindroseAxes
-
 import gsw 
 
 !pip install argopy
@@ -20,7 +13,7 @@ import scipy.interpolate as inter
 
 #create dataset 
 from argopy import DataFetcher as ArgoDataFetcher
-fetcher = ArgoDataFetcher(src='argovis').region([125, 130, -45, -30, 0, 2000, '2007', '2020'])
+fetcher = ArgoDataFetcher(src='argovis').region([125, 130, -50, -35, 0, 2000, '2015', '2020'])
 ds = fetcher.to_xarray()
 ds
 
@@ -89,6 +82,7 @@ ds_interp['filtered_SA'] = filtered_SA
 ds_filter=ds_interp.dropna('N_PROF',how='any')
 
 
+################# SPLINE CREATION FROM HERE DOWNWARDS #################
 #Now we want to create a spline of CT vs Dyn_m(1900) at each pressure level, and then get a new variable which is called CT_GEM
 #So, to create a spline: 
 #At every pressure level, it is compared to dyn height at 1900 
