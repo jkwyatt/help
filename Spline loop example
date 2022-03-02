@@ -123,3 +123,17 @@ for i in range(0,200):
 
 GEM_t=fit(spline_x_coord) 
 GEM_t.shape #should be n x 200
+
+
+#### Another possible loop #####
+k=np.linspace(0,1990,200) #This should be a step through each pressure 
+
+for PRES in ds_filter.PRES:
+    SPLINES_1=ds_filter.CT.sel(PRES_INTERPOLATED=k) #brings back n x 200
+    SPLINES_2=np.array(SPLINES_1) #still n x 200
+    #the data should be 1D at individual pressure levels anyway... 
+    splines_3 = SPLINES_1[idx] #still n x 200
+    for i in range (0,200):
+        fit = inter.UnivariateSpline (spline_x_coord, splines_3(10*i)) #still can't work out how to do that part 
+
+GEM_t=fit(spline_x_coord) #assimilation of all data into new dataset ('GEM field')
